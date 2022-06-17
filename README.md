@@ -43,6 +43,13 @@ Run dRep via bioconda using all mMAGs (comp >= 50, con < 10) and cluster to 95% 
 	-sa 0.95 -p 32 \
 	-g FileListPath.txt
 
+This will resulting in 3,532 clusters, see contributions of the studies in the venn plot:
+
+![venn](/drep5010venn.png)
+
+
+
+
 
 ## Taxonomic classification for final genome set
 
