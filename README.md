@@ -67,10 +67,20 @@ Run gtdbtk for all dereplicated genomes
     conda create -n PIGrun bwa2 bbmap
 	conda activate PIGrun
 
-## 2. Download bwa2-index (Warning 25,7GB but you can use option 2b as an alternative)
+## 2. Download bwa2-index (Warning 22GB but you can use option 2b as an alternative)
 
-    download [Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.fasta.gz](https://1drv.ms/f/s!Am-fED1L6602hcVH65QUhQZse5vOzA) 
+download [Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.tar.gz](https://1drv.ms/u/s!Am-fED1L6602h4BiCGmCFUiqAgr5Sw?e=eukvhb)
+
+	wget -O "Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.tar.gz" "https://onedrive.live.com/download?cid=36ADEB4B3D109F6F&resid=36ADEB4B3D109F6F%21114785&authkey=AMy3k92ykHzmXwk"
+	tar xzf Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.tar.gz
+
+### 2b. Download mMAG-fasta and run bwa2-index (2GB, will take 2-3 hours to process)
+
+download [Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.fasta.gz](https://1drv.ms/f/s!Am-fED1L6602hcVH65QUhQZse5vOzA)
+
+	wget -O "Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.fasta.gz" "https://onedrive.live.com/download?cid=36ADEB4B3D109F6F&resid=36ADEB4B3D109F6F%21114785&authkey=AMy3k92ykHzmXwk"
 	gzip -d Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.fasta.gz
+	bwa-mem2 index Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.fasta
 
 
 ## 3. Map the samples with bwa2 to the Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.fasta
@@ -88,8 +98,12 @@ Run gtdbtk for all dereplicated genomes
 	rm /tmp/${SampleName}.sam.gz
 
 
-## 4. Convert covstats to TPM (normalize count data to genome size and relative to 1 million reads)
+## 4. Convert covstats to TPM
+
+- filter out genomes with less than 20% genomic coverage
+- normalize count data to genome size and relative to 1 million reads
 
     bash TPM-Script ${SampleName}.covstats # create TPM-${SampleName}.txt
 	bash create-abundance-table.sh         # summarizing all Samples into one matrix file
+
 
