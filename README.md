@@ -64,6 +64,15 @@ Run gtdbtk for all dereplicated genomes
 	--out_dir gtdbtk-dereplicated_genomes \
 	--cpus 64 -x fa 
 
+The results you can find in the summary files:
+[Classifications archaeal genomes](/gtdbtk.ar53.summary.tsv)
+[Classifications bacterial genomes](/gtdbtk.bac120.summary.tsv)
+
+Here a visualisation of the top families:
+
+![sunbrust](/sunbrust.png)
+
+
 # Pipelines for using the collection
 
 
