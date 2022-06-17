@@ -5,15 +5,15 @@ Genome collection of isolates and MAGs from the pig gut
 This collection include genomes (isolates and MAGs) from following studies:
 
 PIBAC: Isolate and MAG collection:
-Wylensek, 2020, A collection of bacterial isolates from the pig intestine reveals functional and taxonomic diversity.
+Wylensek, 2020, "A collection of bacterial isolates from the pig intestine reveals functional and taxonomic diversity." Nature communications
 https://doi.org/10.1038/s41467-020-19929-w
 https://github.com/tillrobin/PIBAC
 https://www.dsmz.de/pibac
 
-Chen, 2021, Expanded catalog of microbial genes and metagenome-assembled genomes from the pig gut microbiome." Nature communications 12.1 (2021): 1-13.
+Chen, 2021, "Expanded catalog of microbial genes and metagenome-assembled genomes from the pig gut microbiome." Nature communications
 https://doi.org/10.1038/s41467-021-21295-0
 
-Holman, 2022, Novel insights into the pig gut microbiome using metagenome-assembled genomes
+Holman, 2022, "Novel insights into the pig gut microbiome using metagenome-assembled genomes" bioRxiv
 https://doi.org/10.1101/2022.05.19.492759
 
 # Pipelines for creating the collection
@@ -69,7 +69,7 @@ Run gtdbtk for all dereplicated genomes
 
 ## 2. Download bwa2-index (Warning 22GB but you can use option 2b as an alternative)
 
-download [Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.tar.gz](https://1drv.ms/u/s!Am-fED1L6602h4BiCGmCFUiqAgr5Sw?e=eukvhb)
+download [Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.tar.gz](https://onedrive.live.com/download?cid=36ADEB4B3D109F6F&resid=36ADEB4B3D109F6F%21114785&authkey=AMy3k92ykHzmXwk)
 
 	wget -O "Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.tar.gz" "https://onedrive.live.com/download?cid=36ADEB4B3D109F6F&resid=36ADEB4B3D109F6F%21114785&authkey=AMy3k92ykHzmXwk"
 	tar xzf Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.tar.gz
@@ -83,7 +83,7 @@ download [Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.fasta.gz](https://
 	bwa-mem2 index Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.fasta
 
 
-## 3. Map the samples with bwa2 to the Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.fasta
+## 3. Map the samples with bwa2 to the dereplicated genomes
 
 	Cores=24                      # please check your server
 	RefFasta=/path/to/index/      # bwa2 index
@@ -103,7 +103,11 @@ download [Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.fasta.gz](https://
 - filter out genomes with less than 20% genomic coverage
 - normalize count data to genome size and relative to 1 million reads
 
-    bash TPM-Script ${SampleName}.covstats # create TPM-${SampleName}.txt
+    bash TPM-Script.sh ${SampleName}.covstats # create TPM-${SampleName}.txt
 	bash create-abundance-table.sh         # summarizing all Samples into one matrix file
+
+## 4. Use otu-table/biom-file for analyse the data
+
+- phyloseq
 
 
