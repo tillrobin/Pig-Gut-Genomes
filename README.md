@@ -45,10 +45,7 @@ Run dRep via bioconda using all mMAGs (comp >= 50, con < 10) and cluster to 95% 
 
 This will resulting in 3,532 clusters, see contributions of the studies in the venn plot:
 
-![venn](/drep5010venn.png)
-
-
-
+<img src="https://github.com/tillrobin/Pig-Gut-Genomes/raw/main/drep5010venn.png"  height="400">
 
 
 ## Taxonomic classification for final genome set
@@ -70,8 +67,7 @@ The results you can find in the summary files:
 
 Here a visualisation of the top families:
 
-![sunbrust](/sunbrust.png)
-
+<img src="https://github.com/tillrobin/Pig-Gut-Genomes/raw/main/sunbrust.png"  height="500">
 
 # Pipelines for using the collection
 
@@ -118,12 +114,22 @@ download [Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.fasta.gz](https://
 
 - filter out genomes with less than 20% genomic coverage
 - normalize count data to genome size and relative to 1 million reads
+- download bash script [make-TPM-cov20-biom.sh] to process your covstats files
 
-    bash TPM-Script.sh ${SampleName}.covstats # create TPM-${SampleName}.txt
-	bash create-abundance-table.sh         # summarizing all Samples into one matrix file
+ this script will grep all *.covstats files in the working folder and create TPM and biom-files 
+ 
+	bash make-TPM-cov20-biom.sh
+	
 
 ## 4. Use otu-table/biom-file for analyse the data
 
-- phyloseq
+- create mapping file containing matching "#SampleID" with a group assignment
+- Local: Import biom-file and metadata mapping file into R phyloseq
+- Online: Analyse with Microbiomeanalyst 
+	- Import biom-file and metadata mapping file via Marker Data Profiling https://www.microbiomeanalyst.ca/
+	- Data Upload -> biom-format
+	  -  use TPM or raw-count table in biom format
+	- Data filtering
+	  - please note that the TPM version already include normalication to genomesize and a filtering of low covarge genomes
 
 
