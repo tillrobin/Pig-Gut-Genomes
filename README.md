@@ -103,14 +103,14 @@ download [Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.fasta.gz](https://
 	FastqPathR2=/path/to/file/R2  # set path to read 2
 	SampleName=MySampleName       # create name for the samples
 
-### 3. Mapping to sam-file and sumup via pipeup from bbmap-tools (create sam-file I/O-weighted)
+### 4. Mapping to sam-file and sumup via pipeup from bbmap-tools (create sam-file I/O-weighted)
 
     bwa-mem2 mem -t ${Cores} ${RefFasta} ${FastqPathR1} ${FastqPathR2} | pigz --fast > /tmp/${SampleName}.sam.gz
 	pileup.sh in=/tmp/${SampleName}.sam.gz covstats=${SampleName}.covstats 32bit=t 2> ${SampleName}.log
 	rm /tmp/${SampleName}.sam.gz
 
 
-## 4. Convert covstats to TPM
+## 5. Convert covstats to TPM
 
 - filter out genomes with less than 20% genomic coverage
 - normalize count data to genome size and relative to 1 million reads
@@ -121,10 +121,10 @@ download [Pig_genomes_dRep9095-mMAGs-dereplicated_genomes_v01.fasta.gz](https://
 	bash make-TPM-cov20-biom.sh
 	
 
-## 4. Use otu-table/biom-file for analyse the data
+## 6. Use otu-table/biom-file for analyse the data
 
 - create mapping file containing matching "#SampleID" with a group assignment
-- Local: Import biom-file and metadata mapping file into R phyloseq
+- Local: Import biom-file and metadata mapping file into R phyloseq https://github.com/joey711/phyloseq
 - Online: Analyse with Microbiomeanalyst 
 	- Import biom-file and metadata mapping file via Marker Data Profiling https://www.microbiomeanalyst.ca/
 	- Data Upload -> biom-format
